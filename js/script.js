@@ -1,3 +1,7 @@
+import dataBlue from "./dataBlue.js";
+import dataBrown from "./dataBrown.js";
+import dataGreen from "./dataGreen.js";
+
 const ancientCards = document.querySelectorAll(".ancient-card");
 const difficultyContainer = document.querySelector(".difficulty-container");
 const difficulties = document.querySelectorAll(".difficulty");
@@ -13,6 +17,7 @@ const blues = document.querySelectorAll(".blue");
 
 // console.log(ancientCards)
 
+// ancient Card
 
 ancientCards.forEach((ancientCard) => {
   ancientCard.addEventListener("click", (e) => {
@@ -27,6 +32,8 @@ ancientCards.forEach((ancientCard) => {
   });
 });
 
+// difficulty
+
 difficulties.forEach((difficulty) => {
   difficulty.addEventListener("click", (e) => {
     difficulties.forEach((difficulty) => {
@@ -40,22 +47,22 @@ difficulties.forEach((difficulty) => {
   });
 });
 
+// shuffle Button
+
 shuffleButton.addEventListener("click", (e) => {
   shuffleButton.classList.add("hidden");
   currentState.classList.remove("hidden");
   deck.classList.remove("hidden");
   lastCard.classList.remove("hidden");
   
-  selectFirstAncient()
+  selectAncient()
   
-  // if(ancientCards[0].classList.contains('active')) {
-  //   console.log('Y')
-  // }
-  // console.log(ancientCards[0].classList.contains('active'))
+  seeDataBlue()
   });
-// });
 
-function selectFirstAncient() {
+// select Ancient
+
+function selectAncient() {
   // if(ancientCards[0].classList.contains('active') && difficulties[0].classList.contains('active-button')) {
   if(ancientCards[0].classList.contains('active')) {
     addGreenDotFirstAncient();
@@ -75,6 +82,9 @@ function selectFirstAncient() {
     addBlueDotFourthAncient();
   }
 }
+
+
+// First Ancient
 
 function addGreenDotFirstAncient() {
   greens.forEach((green, index) => {
@@ -107,6 +117,8 @@ function addBlueDotFirstAncient() {
     } 
   });
 }
+
+// Second Ancient
 
 function addGreenDotSecondAncient() {
   greens.forEach((green, index) => {
@@ -142,6 +154,8 @@ function addBlueDotSecondAncient() {
   });
 }
 
+// ThirdAncient
+
 function addGreenDotThirdAncient() {
   greens.forEach((green, index) => {
     if(index === 0) {
@@ -176,7 +190,7 @@ function addBlueDotThirdAncient() {
   });
 }
 
-
+// Fourth Ancient
 
 function addGreenDotFourthAncient() {
   greens.forEach((green, index) => {
@@ -210,50 +224,96 @@ function addBlueDotFourthAncient() {
   });
 }
 
+// select dots
 
-// }
-// containerDots.forEach((containerDot) => {
-//   console.log(containerDot[0])
-// });
-
-
-// ancientCards.addEventListener('click', event => {
-//   console.log(event)
-  // if(event.classList.contains('active')){
-  //   console.log('yes')
-  // }
-
-// })
-// function selectFirstAncient() {
-//   ancientCards.forEach((ancientCard, index) => {
-//     difficulties.forEach((difficulty, ind) => {
-//       if(index === 0 && ind === 0){
-//         console.log('yes')
-//       }
-      
-//     });
-//   });
+// function getRandomNum(min, max) {
+//   min = Math.ceil(min);
+//   max = Math.floor(max);
+//   return Math.floor(Math.random() * (max - min + 1)) + min;
 // }
 
+let arrBlue = [];
+let arrBrown = [];
+let arrGreen = [];
+let sliceArrBlue =[];
+let arrBrownNormal = [];
+let sliceArrBrownNormal = [];
+let arrBrownAll = [];
 
-// ancientCards.forEach((ancientCard, index) => {
-//   difficulties.forEach((difficulty, ind) => {
-//     ancientCard.addEventListener("click", (e) => {
-//       console.log(index)
-//       if(index === 0){
-//           console.log('yes')
-//         }
-//     });
-//     difficulty.addEventListener("click", (e) => {
-//       console.log(ind)
-//       if(ind === 0){
-//           console.log('yes')
-//         }
-//     });
-//     if(index === 0){
-//       console.log('s')
-//     }
-//   });
-  
-// });
+function seeDataBlue() {
+  for (let i = 0; i < dataBlue.length; i++) {
+    if(dataBlue[i].difficulty === 'easy') {
+      arrBlue.push(dataBlue[i])
+
+      // lastCard.style.backgroundImage = dataBlue[i].src;
+
+    }
+    
+    // рандомно перемешали массив
+
+    const sortArrBlue = arrBlue.sort(function() {
+      return Math.random() - 0.5;
+    });
+
+    // обрезали до двух значений
+
+    sliceArrBlue = sortArrBlue.slice(0, 2)
+
+  }
+
+  for (let i = 0; i < dataBrown.length; i++) {
+    if(dataBrown[i].difficulty === 'easy') {
+      // console.log(dataBrown[i].difficulty);
+      arrBrown.push(dataBrown[i])
+    }
+    if(dataBrown[i].difficulty === 'normal') {
+      console.log(dataBrown[i].difficulty);
+      arrBrownNormal.push(dataBrown[i]);
+    }
+
+    // рандомно перемешали массив
+    const sortArrBrown = arrBrown.sort(function() {
+      return Math.random() - 0.5;
+    });
+
+    // рандомно перемешали массив
+    const sortArrBrownNormal = arrBrownNormal.sort(function() {
+      return Math.random() - 0.5;
+    });
+
+    // обрезали до двух значений
+
+    sliceArrBrownNormal = sortArrBrownNormal.slice(0, 4)
+
+    // 
+
+    arrBrownAll = arrBrown.concat(sliceArrBrownNormal);
+
+    
+  }
+
+  for (let i = 0; i < dataGreen.length; i++) {
+    if(dataGreen[i].difficulty === 'easy') {
+      console.log(dataGreen[i].difficulty);
+      arrGreen.push(dataGreen[i])
+
+      //рандомно перемешали
+      const sortArrGreen = arrGreen.sort(function() {
+        return Math.random() - 0.5;
+      });
+    }
+  }
+
+  // console.log(arrBlue)
+  // console.log(sliceArrBlue)
+  // console.log(arrGreen)
+  console.log(arrBrown)
+  console.log(sliceArrBrownNormal)
+  console.log(arrBrownAll)
+}
+
+// seeDataBlue()
+
+
+
 

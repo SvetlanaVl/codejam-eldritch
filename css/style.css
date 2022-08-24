@@ -139,7 +139,9 @@
   width: 130px;
 }
 
-
+.last-card {
+  color: aliceblue;
+}
 
 .hidden {
   display: none;
