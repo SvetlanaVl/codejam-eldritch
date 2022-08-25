@@ -29,6 +29,8 @@ ancientCards.forEach((ancientCard) => {
     currentState.classList.add("hidden");
     deck.classList.add("hidden");
     lastCard.classList.add("hidden");
+    arrBrown = [];
+    arrBrownAll = [];
   });
 });
 
@@ -44,6 +46,8 @@ difficulties.forEach((difficulty) => {
     currentState.classList.add("hidden");
     deck.classList.add("hidden");
     lastCard.classList.add("hidden");
+    arrBrown = [];
+    arrBrownAll = [];
   });
 });
 
@@ -186,7 +190,7 @@ function addBlueDotThirdAncient() {
       blue.innerHTML = 1;
     } else if(index === 2) {
       blue.innerHTML = 0;
-    } 
+    }
   });
 }
 
@@ -226,27 +230,15 @@ function addBlueDotFourthAncient() {
 
 // select dots
 
-// function getRandomNum(min, max) {
-//   min = Math.ceil(min);
-//   max = Math.floor(max);
-//   return Math.floor(Math.random() * (max - min + 1)) + min;
-// }
+// blue dots
 
 let arrBlue = [];
-let arrBrown = [];
-let arrGreen = [];
 let sliceArrBlue =[];
-let arrBrownNormal = [];
-let sliceArrBrownNormal = [];
-let arrBrownAll = [];
 
-function seeDataBlue() {
+function makeDeckOfBlueCards() {
   for (let i = 0; i < dataBlue.length; i++) {
     if(dataBlue[i].difficulty === 'easy') {
       arrBlue.push(dataBlue[i])
-
-      // lastCard.style.backgroundImage = dataBlue[i].src;
-
     }
     
     // рандомно перемешали массив
@@ -260,59 +252,219 @@ function seeDataBlue() {
     sliceArrBlue = sortArrBlue.slice(0, 2)
 
   }
+}
 
+// brown dots
+
+let arrBrown = [];
+let arrBrownNormal = [];
+let sliceArrBrownNormal = [];
+let arrBrownAll = [];
+let sortArrBrownAll = [];
+
+function makeDeckOfBrownCards() {
   for (let i = 0; i < dataBrown.length; i++) {
     if(dataBrown[i].difficulty === 'easy') {
-      // console.log(dataBrown[i].difficulty);
-      arrBrown.push(dataBrown[i])
+      arrBrown.push(dataBrown[i]);
     }
     if(dataBrown[i].difficulty === 'normal') {
-      console.log(dataBrown[i].difficulty);
       arrBrownNormal.push(dataBrown[i]);
     }
 
-    // рандомно перемешали массив
+    // рандомно перемешали массив easy
     const sortArrBrown = arrBrown.sort(function() {
       return Math.random() - 0.5;
     });
 
-    // рандомно перемешали массив
+    // рандомно перемешали массив normal
     const sortArrBrownNormal = arrBrownNormal.sort(function() {
       return Math.random() - 0.5;
     });
 
-    // обрезали до двух значений
+    // обрезали до четырёх значений
 
-    sliceArrBrownNormal = sortArrBrownNormal.slice(0, 4)
+    sliceArrBrownNormal = sortArrBrownNormal.slice(0, 4);
 
-    // 
+ // соединили в одинмассив
 
-    arrBrownAll = arrBrown.concat(sliceArrBrownNormal);
+    arrBrownAll = sortArrBrown.concat(sliceArrBrownNormal);
 
-    
+    // рандомно перемешали массив arrBrownAll
+
+    sortArrBrownAll = arrBrownAll.sort(function() {
+      return Math.random() - 0.5;
+    });
   }
+}
 
+// green dots
+
+let arrGreen = [];
+let sortArrGreen = [];
+
+function makeDeckOfGreenCards() {
   for (let i = 0; i < dataGreen.length; i++) {
     if(dataGreen[i].difficulty === 'easy') {
       console.log(dataGreen[i].difficulty);
-      arrGreen.push(dataGreen[i])
+      arrGreen.push(dataGreen[i]);
 
-      //рандомно перемешали
-      const sortArrGreen = arrGreen.sort(function() {
-        return Math.random() - 0.5;
-      });
     }
-  }
 
-  // console.log(arrBlue)
-  // console.log(sliceArrBlue)
-  // console.log(arrGreen)
-  console.log(arrBrown)
-  console.log(sliceArrBrownNormal)
-  console.log(arrBrownAll)
+    //рандомно перемешали
+
+    sortArrGreen = arrGreen.sort(function() {
+      return Math.random() - 0.5;
+    });
+  }
 }
 
-// seeDataBlue()
+// add Stage
+
+// add first Stage
+
+let firstStage = [];
+let a
+
+function makeFirstStage() {
+  a = sliceArrBlue.pop()
+  firstStage.push(a)
+  a = sortArrBrownAll.pop()
+  firstStage.push(a)
+  a = sortArrBrownAll.pop()
+  firstStage.push(a)
+  a = sortArrGreen.pop()
+  firstStage.push(a)
+}
+
+// add second Stage
+
+let secondStage = [];
+
+function makeSecondStage() {
+  a = sliceArrBlue.pop()
+  secondStage.push(a)
+  a = sortArrBrownAll.pop()
+  secondStage.push(a)
+  a = sortArrBrownAll.pop()
+  secondStage.push(a)
+  a = sortArrBrownAll.pop()
+  secondStage.push(a)
+  a = sortArrGreen.pop()
+  secondStage.push(a)
+  a = sortArrGreen.pop()
+  secondStage.push(a)
+}
+
+// add third Stage
+
+let thirdStage = [];
+
+function makeThirdStage() {
+  a = sortArrBrownAll.pop()
+  thirdStage.push(a)
+  a = sortArrBrownAll.pop()
+  thirdStage.push(a)
+  a = sortArrBrownAll.pop()
+  thirdStage.push(a)
+  a = sortArrBrownAll.pop()
+  thirdStage.push(a)
+  a = sortArrGreen.pop()
+  thirdStage.push(a)
+  a = sortArrGreen.pop()
+  thirdStage.push(a)
+}
+
+// common deck of cards
+
+let stack = [];
+let stackFlat = [];
+
+function makeCommonDesk() {
+  stack.push(thirdStage);
+  stack.push(secondStage);
+  stack.push(firstStage);
+
+  stackFlat = stack.flat()
+}
+
+// show Cards
+let topElement
+function showCards() {
+  topElement = stackFlat[stackFlat.length - 1];
+  if(stackFlat.length > 0) {
+    stackFlat.forEach((card) => {
+      console.log(topElement)
+      lastCard.style.backgroundImage = topElement.src;
+    });
+    stackFlat.pop();
+  } else {
+    lastCard.style.backgroundImage = "";
+  }
+  
+  checkTracker()
+}
+
+deck.addEventListener("click", showCards);
+
+// make deck
+
+function seeDataBlue() {
+
+  makeDeckOfBlueCards();
+  makeDeckOfBrownCards();
+  makeDeckOfGreenCards();
+  makeFirstStage();
+  makeSecondStage();
+  makeThirdStage();
+  makeCommonDesk();
+
+}
+
+// tracker
+
+function checkTrackerBlue() {
+  if(topElement.color === 'blue') {
+    if(blues[0].innerText > 0) {
+      blues[0].innerHTML = (blues[0].innerText - 1)
+    } else if(blues[0].innerText == 0  && blues[1].innerText > 0) {
+      blues[1].innerHTML = (blues[1].innerText - 1)
+    } else if(blues[0].innerText == 0  && blues[1].innerText == 0 && blues[2].innerText > 0) {
+      blues[2].innerHTML = (blues[2].innerText - 1)
+    }
+  } 
+}
+
+function checkTrackerBrown() {
+  if(topElement.color === 'brown') {
+    if(browns[0].innerText > 0) {
+      browns[0].innerHTML = (browns[0].innerText - 1)
+    } else if(browns[0].innerText == 0  && browns[1].innerText > 0) {
+      browns[1].innerHTML = (browns[1].innerText - 1)
+    } else if(browns[0].innerText == 0  && browns[1].innerText == 0 && browns[2].innerText > 0) {
+      browns[2].innerHTML = (browns[2].innerText - 1)
+    }
+  } 
+}
+
+function checkTrackerGreen() {
+  if(topElement.color === 'green') {
+    if(greens[0].innerText > 0) {
+      greens[0].innerHTML = (greens[0].innerText - 1)
+    } else if(greens[0].innerText == 0  && greens[1].innerText > 0) {
+      greens[1].innerHTML = (greens[1].innerText - 1)
+    } else if(greens[0].innerText == 0  && greens[1].innerText == 0 && greens[2].innerText > 0) {
+      greens[2].innerHTML = (greens[2].innerText - 1)
+    }
+  } 
+}
+
+function checkTracker() {
+  checkTrackerBlue()
+  checkTrackerBrown()
+  checkTrackerGreen()
+
+}
+
 
 
 
