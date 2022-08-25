@@ -826,6 +826,100 @@ function seeDataVeryEasyLevelSecond() {
   makeCommonDesk();
 }
 
+// select dots easy level
+
+// green dots
+
+function makeDeckOfGreenCardsSecondEasy() {
+  for (let i = 0; i < dataGreen.length; i++) {
+    if(dataGreen[i].difficulty != 'hard') {
+      arrGreen.push(dataGreen[i]);
+    }
+    sliceGreenSecond();
+    sortGreenSecond();
+  }
+}
+
+function seeDataVeryEasyLevelSecondEasy() {
+  makeDeckOfBlueCardsEasy();
+  makeDeckOfBrownCardsEasy();
+  makeDeckOfGreenCardsSecondEasy();
+  makeFirstStageSecond();
+  makeSecondStageSecond();
+  makeThirdStageSecond();
+  makeCommonDesk();
+}
+
+// select dots Medium level
+
+// green dots
+
+function makeDeckOfGreenCardsSecondMedium() {
+  for (let i = 0; i < dataGreen.length; i++) {
+    arrGreen.push(dataGreen[i]);
+    sliceGreenSecond();
+    sortGreenSecond();
+  }
+}
+
+function seeDataVeryEasyLevelSecondMedium() {
+  makeDeckOfBlueCardsMedium();
+  makeDeckOfBrownCardsMedium();
+  makeDeckOfGreenCardsSecondMedium();
+  makeFirstStageSecond();
+  makeSecondStageSecond();
+  makeThirdStageSecond();
+  makeCommonDesk();
+}
+
+// select dots High level
+
+// green dots
+
+function makeDeckOfGreenCardsSecondHigh() {
+  for (let i = 0; i < dataGreen.length; i++) {
+    if(dataGreen[i].difficulty != 'easy') {
+      arrGreen.push(dataGreen[i]);
+    }
+    sliceGreenSecond();
+    sortGreenSecond();
+  }
+}
+
+function seeDataVeryEasyLevelSecondHigh() {
+  makeDeckOfBlueCardsHigh();
+  makeDeckOfBrownCardsHigh();
+  makeDeckOfGreenCardsSecondHigh();
+  makeFirstStageSecond();
+  makeSecondStageSecond();
+  makeThirdStageSecond();
+  makeCommonDesk();
+}
+
+// select dots Very High level
+
+// green dots
+
+function makeDeckOfGreenCardsSecondVeryHigh() {
+  for (let i = 0; i < dataGreen.length; i++) {
+    if(dataGreen[i].difficulty === 'hard') {
+      arrGreen.push(dataGreen[i]);
+    }
+    sliceGreenSecond();
+    sortGreenSecond();
+  }
+}
+
+function seeDataVeryEasyLevelSecondVeryHigh() {
+  makeDeckOfBlueCardsVeryHigh();
+  makeDeckOfBrownCardsVeryHigh();
+  makeDeckOfGreenCardsSecondVeryHigh();
+  makeFirstStageSecond();
+  makeSecondStageSecond();
+  makeThirdStageSecond();
+  makeCommonDesk();
+}
+
 function chooseDifficultyLevel() {
   if(difficulties[0].classList.contains('active-button') && ancientCards[0].classList.contains('active')) {
     seeDataVeryEasyLevel();
@@ -840,13 +934,13 @@ function chooseDifficultyLevel() {
   } else if(difficulties[0].classList.contains('active-button') && ancientCards[1].classList.contains('active')) {
     seeDataVeryEasyLevelSecond();
   } else if(difficulties[1].classList.contains('active-button') && ancientCards[1].classList.contains('active')){
-    console.log('2')
+    seeDataVeryEasyLevelSecondEasy();
   } else if(difficulties[2].classList.contains('active-button') && ancientCards[1].classList.contains('active')){
-    console.log('3')
+    seeDataVeryEasyLevelSecondMedium();
   } else if(difficulties[3].classList.contains('active-button') && ancientCards[1].classList.contains('active')){
-    console.log('4')
+    seeDataVeryEasyLevelSecondHigh();
   } else if(difficulties[4].classList.contains('active-button') && ancientCards[1].classList.contains('active')){
-    console.log('5')
+    seeDataVeryEasyLevelSecondVeryHigh();
   } else if(difficulties[0].classList.contains('active-button') && ancientCards[2].classList.contains('active')) {
     console.log('1')
   } else if(difficulties[1].classList.contains('active-button') && ancientCards[2].classList.contains('active')){
