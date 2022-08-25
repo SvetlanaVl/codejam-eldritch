@@ -9,8 +9,6 @@ const shuffleButton = document.querySelector(".shuffle-button");
 const currentState = document.querySelector(".current-state");
 const deck = document.querySelector(".deck");
 const lastCard = document.querySelector(".last-card");
-const containerDots = document.querySelectorAll(".dots-container");
-const dots = document.querySelectorAll(".dot");
 const greens = document.querySelectorAll(".green");
 const browns = document.querySelectorAll(".brown");
 const blues = document.querySelectorAll(".blue");
@@ -31,6 +29,23 @@ ancientCards.forEach((ancientCard) => {
     lastCard.classList.add("hidden");
     arrBrown = [];
     arrBrownAll = [];
+    arrBlue = [];
+    sliceArrBlue =[];
+    sortArrBlue = [];
+    arrBrownNormal = [];
+    sliceArrBrown = [];
+    sliceArrBrownNormal = [];
+    sortArrBrown = [];
+    sortArrBrownNormal = [];
+    sortArrBrownAll = [];
+    arrGreen = [];
+    sortArrGreen = [];
+    sliceArrGreen = [];
+    firstStage = [];
+    secondStage = [];
+    thirdStage = [];
+    stack = [];
+    stackFlat = [];
   });
 });
 
@@ -48,6 +63,23 @@ difficulties.forEach((difficulty) => {
     lastCard.classList.add("hidden");
     arrBrown = [];
     arrBrownAll = [];
+    arrBlue = [];
+    sliceArrBlue =[];
+    sortArrBlue = [];
+    arrBrownNormal = [];
+    sliceArrBrown = [];
+    sliceArrBrownNormal = [];
+    sortArrBrown = [];
+    sortArrBrownNormal = [];
+    sortArrBrownAll = [];
+    arrGreen = [];
+    sortArrGreen = [];
+    sliceArrGreen = [];
+    firstStage = [];
+    secondStage = [];
+    thirdStage = [];
+    stack = [];
+    stackFlat = [];
   });
 });
 
@@ -58,16 +90,13 @@ shuffleButton.addEventListener("click", (e) => {
   currentState.classList.remove("hidden");
   deck.classList.remove("hidden");
   lastCard.classList.remove("hidden");
-  
-  selectAncient()
-  
-  seeDataBlue()
+  selectAncient();
+  chooseDifficultyLevel();
   });
 
 // select Ancient
 
 function selectAncient() {
-  // if(ancientCards[0].classList.contains('active') && difficulties[0].classList.contains('active-button')) {
   if(ancientCards[0].classList.contains('active')) {
     addGreenDotFirstAncient();
     addBrownDotFirstAncient();
@@ -228,29 +257,38 @@ function addBlueDotFourthAncient() {
   });
 }
 
-// select dots
+
+// first ancient
+
+// select dots very easy level
 
 // blue dots
 
 let arrBlue = [];
 let sliceArrBlue =[];
+let sortArrBlue = [];
+
+// shuffle array randomly
+
+function sortBlue() {
+  sortArrBlue = arrBlue.sort(function() {
+    return Math.random() - 0.5;
+  });
+}
+
+// cut to two values
+
+function sliceBlue() {
+  sliceArrBlue = sortArrBlue.slice(0, 2);
+}
 
 function makeDeckOfBlueCards() {
   for (let i = 0; i < dataBlue.length; i++) {
     if(dataBlue[i].difficulty === 'easy') {
-      arrBlue.push(dataBlue[i])
+      arrBlue.push(dataBlue[i]);
     }
-    
-    // рандомно перемешали массив
-
-    const sortArrBlue = arrBlue.sort(function() {
-      return Math.random() - 0.5;
-    });
-
-    // обрезали до двух значений
-
-    sliceArrBlue = sortArrBlue.slice(0, 2)
-
+    sortBlue();
+    sliceBlue();
   }
 }
 
@@ -258,9 +296,48 @@ function makeDeckOfBlueCards() {
 
 let arrBrown = [];
 let arrBrownNormal = [];
+let sliceArrBrown = [];
 let sliceArrBrownNormal = [];
 let arrBrownAll = [];
+let sortArrBrown = [];
+let sortArrBrownNormal = [];
 let sortArrBrownAll = [];
+
+// shuffle array randomly
+
+function sortBrownNoNormal() {
+  sortArrBrown = arrBrown.sort(function() {
+    return Math.random() - 0.5;
+  });
+}
+
+// shuffle array normal randomly
+
+function sortBrownNormal() {
+  sortArrBrownNormal = arrBrownNormal.sort(function() {
+    return Math.random() - 0.5;
+  });
+}
+
+// cut to four values
+
+function sliceBrownNormal() {
+  sliceArrBrownNormal = sortArrBrownNormal.slice(0, 4);
+}
+
+// merge into one array
+
+function brownAll() {
+  arrBrownAll = sortArrBrown.concat(sliceArrBrownNormal);
+}
+
+// shuffle array arrBrownAll randomly
+
+function sortBrownAll() {
+  sortArrBrownAll = arrBrownAll.sort(function() {
+    return Math.random() - 0.5;
+  });
+}
 
 function makeDeckOfBrownCards() {
   for (let i = 0; i < dataBrown.length; i++) {
@@ -270,30 +347,11 @@ function makeDeckOfBrownCards() {
     if(dataBrown[i].difficulty === 'normal') {
       arrBrownNormal.push(dataBrown[i]);
     }
-
-    // рандомно перемешали массив easy
-    const sortArrBrown = arrBrown.sort(function() {
-      return Math.random() - 0.5;
-    });
-
-    // рандомно перемешали массив normal
-    const sortArrBrownNormal = arrBrownNormal.sort(function() {
-      return Math.random() - 0.5;
-    });
-
-    // обрезали до четырёх значений
-
-    sliceArrBrownNormal = sortArrBrownNormal.slice(0, 4);
-
- // соединили в одинмассив
-
-    arrBrownAll = sortArrBrown.concat(sliceArrBrownNormal);
-
-    // рандомно перемешали массив arrBrownAll
-
-    sortArrBrownAll = arrBrownAll.sort(function() {
-      return Math.random() - 0.5;
-    });
+    sortBrownNoNormal();
+    sortBrownNormal();
+    sliceBrownNormal();
+    brownAll();
+    sortBrownAll();
   }
 }
 
@@ -301,20 +359,22 @@ function makeDeckOfBrownCards() {
 
 let arrGreen = [];
 let sortArrGreen = [];
+let sliceArrGreen = [];
+
+//shuffle array randomly
+
+function sortGreen() {
+  sortArrGreen = arrGreen.sort(function() {
+    return Math.random() - 0.5;
+  });
+}
 
 function makeDeckOfGreenCards() {
   for (let i = 0; i < dataGreen.length; i++) {
     if(dataGreen[i].difficulty === 'easy') {
-      console.log(dataGreen[i].difficulty);
       arrGreen.push(dataGreen[i]);
-
     }
-
-    //рандомно перемешали
-
-    sortArrGreen = arrGreen.sort(function() {
-      return Math.random() - 0.5;
-    });
+    sortGreen();
   }
 }
 
@@ -323,17 +383,17 @@ function makeDeckOfGreenCards() {
 // add first Stage
 
 let firstStage = [];
-let a
+let cardPush
 
 function makeFirstStage() {
-  a = sliceArrBlue.pop()
-  firstStage.push(a)
-  a = sortArrBrownAll.pop()
-  firstStage.push(a)
-  a = sortArrBrownAll.pop()
-  firstStage.push(a)
-  a = sortArrGreen.pop()
-  firstStage.push(a)
+  cardPush = sliceArrBlue.pop();
+  firstStage.push(cardPush);
+  cardPush = sortArrBrownAll.pop();
+  firstStage.push(cardPush);
+  cardPush = sortArrBrownAll.pop();
+  firstStage.push(cardPush);
+  cardPush = sortArrGreen.pop();
+  firstStage.push(cardPush);
 }
 
 // add second Stage
@@ -341,18 +401,18 @@ function makeFirstStage() {
 let secondStage = [];
 
 function makeSecondStage() {
-  a = sliceArrBlue.pop()
-  secondStage.push(a)
-  a = sortArrBrownAll.pop()
-  secondStage.push(a)
-  a = sortArrBrownAll.pop()
-  secondStage.push(a)
-  a = sortArrBrownAll.pop()
-  secondStage.push(a)
-  a = sortArrGreen.pop()
-  secondStage.push(a)
-  a = sortArrGreen.pop()
-  secondStage.push(a)
+  cardPush = sliceArrBlue.pop();
+  secondStage.push(cardPush);
+  cardPush = sortArrBrownAll.pop();
+  secondStage.push(cardPush);
+  cardPush = sortArrBrownAll.pop();
+  secondStage.push(cardPush);
+  cardPush = sortArrBrownAll.pop();
+  secondStage.push(cardPush);
+  cardPush = sortArrGreen.pop();
+  secondStage.push(cardPush);
+  cardPush = sortArrGreen.pop();
+  secondStage.push(cardPush);
 }
 
 // add third Stage
@@ -360,18 +420,18 @@ function makeSecondStage() {
 let thirdStage = [];
 
 function makeThirdStage() {
-  a = sortArrBrownAll.pop()
-  thirdStage.push(a)
-  a = sortArrBrownAll.pop()
-  thirdStage.push(a)
-  a = sortArrBrownAll.pop()
-  thirdStage.push(a)
-  a = sortArrBrownAll.pop()
-  thirdStage.push(a)
-  a = sortArrGreen.pop()
-  thirdStage.push(a)
-  a = sortArrGreen.pop()
-  thirdStage.push(a)
+  cardPush = sortArrBrownAll.pop();
+  thirdStage.push(cardPush);
+  cardPush = sortArrBrownAll.pop();
+  thirdStage.push(cardPush);
+  cardPush= sortArrBrownAll.pop();
+  thirdStage.push(cardPush);
+  cardPush = sortArrBrownAll.pop();
+  thirdStage.push(cardPush);
+  cardPush = sortArrGreen.pop();
+  thirdStage.push(cardPush);
+  cardPush = sortArrGreen.pop();
+  thirdStage.push(cardPush);
 }
 
 // common deck of cards
@@ -383,8 +443,7 @@ function makeCommonDesk() {
   stack.push(thirdStage);
   stack.push(secondStage);
   stack.push(firstStage);
-
-  stackFlat = stack.flat()
+  stackFlat = stack.flat();
 }
 
 // show Cards
@@ -393,23 +452,20 @@ function showCards() {
   topElement = stackFlat[stackFlat.length - 1];
   if(stackFlat.length > 0) {
     stackFlat.forEach((card) => {
-      console.log(topElement)
       lastCard.style.backgroundImage = topElement.src;
     });
     stackFlat.pop();
   } else {
     lastCard.style.backgroundImage = "";
   }
-  
-  checkTracker()
+  checkTracker();
 }
 
 deck.addEventListener("click", showCards);
 
 // make deck
 
-function seeDataBlue() {
-
+function seeDataVeryEasyLevel() {
   makeDeckOfBlueCards();
   makeDeckOfBrownCards();
   makeDeckOfGreenCards();
@@ -417,7 +473,6 @@ function seeDataBlue() {
   makeSecondStage();
   makeThirdStage();
   makeCommonDesk();
-
 }
 
 // tracker
@@ -425,11 +480,11 @@ function seeDataBlue() {
 function checkTrackerBlue() {
   if(topElement.color === 'blue') {
     if(blues[0].innerText > 0) {
-      blues[0].innerHTML = (blues[0].innerText - 1)
+      blues[0].innerHTML = (blues[0].innerText - 1);
     } else if(blues[0].innerText == 0  && blues[1].innerText > 0) {
-      blues[1].innerHTML = (blues[1].innerText - 1)
+      blues[1].innerHTML = (blues[1].innerText - 1);
     } else if(blues[0].innerText == 0  && blues[1].innerText == 0 && blues[2].innerText > 0) {
-      blues[2].innerHTML = (blues[2].innerText - 1)
+      blues[2].innerHTML = (blues[2].innerText - 1);
     }
   } 
 }
@@ -437,11 +492,11 @@ function checkTrackerBlue() {
 function checkTrackerBrown() {
   if(topElement.color === 'brown') {
     if(browns[0].innerText > 0) {
-      browns[0].innerHTML = (browns[0].innerText - 1)
+      browns[0].innerHTML = (browns[0].innerText - 1);
     } else if(browns[0].innerText == 0  && browns[1].innerText > 0) {
-      browns[1].innerHTML = (browns[1].innerText - 1)
+      browns[1].innerHTML = (browns[1].innerText - 1);
     } else if(browns[0].innerText == 0  && browns[1].innerText == 0 && browns[2].innerText > 0) {
-      browns[2].innerHTML = (browns[2].innerText - 1)
+      browns[2].innerHTML = (browns[2].innerText - 1);
     }
   } 
 }
@@ -449,23 +504,368 @@ function checkTrackerBrown() {
 function checkTrackerGreen() {
   if(topElement.color === 'green') {
     if(greens[0].innerText > 0) {
-      greens[0].innerHTML = (greens[0].innerText - 1)
+      greens[0].innerHTML = (greens[0].innerText - 1);
     } else if(greens[0].innerText == 0  && greens[1].innerText > 0) {
-      greens[1].innerHTML = (greens[1].innerText - 1)
+      greens[1].innerHTML = (greens[1].innerText - 1);
     } else if(greens[0].innerText == 0  && greens[1].innerText == 0 && greens[2].innerText > 0) {
-      greens[2].innerHTML = (greens[2].innerText - 1)
+      greens[2].innerHTML = (greens[2].innerText - 1);
     }
   } 
 }
 
 function checkTracker() {
-  checkTrackerBlue()
-  checkTrackerBrown()
-  checkTrackerGreen()
+  checkTrackerBlue();
+  checkTrackerBrown();
+  checkTrackerGreen();
+}
 
+// select dots easy level
+
+// blue dots
+
+function makeDeckOfBlueCardsEasy() {
+  for (let i = 0; i < dataBlue.length; i++) {
+    if(dataBlue[i].difficulty != 'hard') {
+      arrBlue.push(dataBlue[i]);
+    }
+    sortBlue();
+    sliceBlue();
+  }
+}
+
+// brown dots
+
+// cut to nine values
+
+function sliceBrown() {
+  sliceArrBrown = arrBrown.slice(0, 9);
+}
+
+// shuffle array randomly
+
+function sortBrown() {
+  sortArrBrownAll = sliceArrBrown.sort(function() {
+    return Math.random() - 0.5;
+  });
+}
+
+function makeDeckOfBrownCardsEasy() {
+  for (let i = 0; i < dataBrown.length; i++) {
+    if(dataBrown[i].difficulty != 'hard') {
+      arrBrown.push(dataBrown[i]);
+    }
+    sliceBrown();
+    sortBrown();
+  }
+}
+
+// green dots
+
+// cut to five values
+
+function sliceGreen() {
+  sliceArrGreen = arrGreen.slice(0, 5);
+}
+
+// shuffle array randomly
+
+function sortSliceGreen() {
+  sortArrGreen = sliceArrGreen.sort(function() {
+    return Math.random() - 0.5;
+  });
 }
 
 
+function makeDeckOfGreenCardsEasy() {
+  for (let i = 0; i < dataGreen.length; i++) {
+    if(dataGreen[i].difficulty != 'hard') {
+      arrGreen.push(dataGreen[i]);
+    }
+    sliceGreen();
+    sortSliceGreen();
+  }
+}
 
+function seeDataEasyLevel() {
+  makeDeckOfBlueCardsEasy();
+  makeDeckOfBrownCardsEasy();
+  makeDeckOfGreenCardsEasy();
+  makeFirstStage();
+  makeSecondStage();
+  makeThirdStage();
+  makeCommonDesk();
+}
 
+// select dots Medium level
 
+// blue dots
+
+function makeDeckOfBlueCardsMedium() {
+  for (let i = 0; i < dataBlue.length; i++) {
+    arrBlue.push(dataBlue[i]);
+    sortBlue();
+    sliceBlue();
+  }
+}
+
+// brown dots
+
+function makeDeckOfBrownCardsMedium() {
+  for (let i = 0; i < dataBrown.length; i++) {
+    arrBrown.push(dataBrown[i]);
+    sliceBrown();
+    sortBrown();
+  }
+}
+
+// green dots
+
+function makeDeckOfGreenCardsMedium() {
+  for (let i = 0; i < dataGreen.length; i++) {
+    arrGreen.push(dataGreen[i]);
+    sliceGreen();
+    sortSliceGreen();
+  }
+}
+
+function seeDataMediumLevel() {
+  makeDeckOfBlueCardsMedium();
+  makeDeckOfBrownCardsMedium();
+  makeDeckOfGreenCardsMedium();
+  makeFirstStage();
+  makeSecondStage();
+  makeThirdStage();
+  makeCommonDesk();
+}
+
+// select dots High level
+
+// blue dots
+
+function makeDeckOfBlueCardsHigh() {
+  for (let i = 0; i < dataBlue.length; i++) {
+    if(dataBlue[i].difficulty != 'easy') {
+      arrBlue.push(dataBlue[i]);
+    }
+    sortBlue();
+    sliceBlue();
+  }
+}
+
+// brown dots
+
+function makeDeckOfBrownCardsHigh() {
+  for (let i = 0; i < dataBrown.length; i++) {
+    if(dataBrown[i].difficulty != 'easy') {
+      arrBrown.push(dataBrown[i]);
+    }
+    sliceBrown();
+    sortBrown();
+  }
+}
+
+// green dots
+
+function makeDeckOfGreenCardsHigh() {
+  for (let i = 0; i < dataGreen.length; i++) {
+    if(dataGreen[i].difficulty != 'easy') {
+      arrGreen.push(dataGreen[i]);
+    }
+    sliceGreen();
+    sortSliceGreen();
+  }
+}
+
+function seeDataHighLevel() {
+  makeDeckOfBlueCardsHigh();
+  makeDeckOfBrownCardsHigh();
+  makeDeckOfGreenCardsHigh();
+  makeFirstStage();
+  makeSecondStage();
+  makeThirdStage();
+  makeCommonDesk();
+}
+
+// select dots Very High level
+
+// blue dots
+
+function makeDeckOfBlueCardsVeryHigh() {
+  for (let i = 0; i < dataBlue.length; i++) {
+    if(dataBlue[i].difficulty === 'hard') {
+      arrBlue.push(dataBlue[i]);
+    }
+    sortBlue();
+    sliceBlue();
+  }
+}
+
+// brown dots
+
+function makeDeckOfBrownCardsVeryHigh() {
+  for (let i = 0; i < dataBrown.length; i++) {
+    if(dataBrown[i].difficulty === 'hard') {
+      arrBrown.push(dataBrown[i]);
+    }
+    if(dataBrown[i].difficulty === 'normal') {
+      arrBrownNormal.push(dataBrown[i]);
+    }
+    sortBrownNoNormal();
+    sortBrownNormal();
+    sliceBrownNormal();
+    brownAll();
+    sortBrownAll();
+  }
+}
+
+// green dots
+
+function makeDeckOfGreenCardsVeryHigh() {
+  for (let i = 0; i < dataGreen.length; i++) {
+    if(dataGreen[i].difficulty === 'hard') {
+      arrGreen.push(dataGreen[i]);
+    }
+    sortGreen();
+  }
+}
+
+function seeDataVeryHighLevel() {
+  makeDeckOfBlueCardsVeryHigh();
+  makeDeckOfBrownCardsVeryHigh();
+  makeDeckOfGreenCardsVeryHigh();
+  makeFirstStage();
+  makeSecondStage();
+  makeThirdStage();
+  makeCommonDesk();
+}
+
+// second ancient
+
+// select dots very easy level
+
+// green dots
+
+// cut to four values
+
+function sliceGreenSecond() {
+  sliceArrGreen = arrGreen.slice(0, 4);
+}
+
+//shuffle array randomly
+
+function sortGreenSecond() {
+  sortArrGreen = sliceArrGreen.sort(function() {
+    return Math.random() - 0.5;
+  });
+}
+
+function makeDeckOfGreenCardsSecond() {
+  for (let i = 0; i < dataGreen.length; i++) {
+    if(dataGreen[i].difficulty === 'easy') {
+      arrGreen.push(dataGreen[i]);
+    }
+    sliceGreenSecond();
+    sortGreenSecond();
+  }
+}
+
+// add Stage
+
+// add first Stage
+
+function makeFirstStageSecond() {
+  cardPush = sliceArrBlue.pop();
+  firstStage.push(cardPush);
+  cardPush = sliceArrBlue.pop();
+  firstStage.push(cardPush);
+  cardPush = sortArrBrownAll.pop();
+  firstStage.push(cardPush);
+  cardPush = sortArrBrownAll.pop();
+  firstStage.push(cardPush);
+}
+
+// add second Stage
+
+function makeSecondStageSecond() {
+  cardPush = sortArrBrownAll.pop();
+  secondStage.push(cardPush);
+  cardPush = sortArrBrownAll.pop();
+  secondStage.push(cardPush);
+  cardPush = sortArrBrownAll.pop();
+  secondStage.push(cardPush);
+  cardPush = sortArrGreen.pop();
+  secondStage.push(cardPush);
+}
+
+// add third Stage
+
+function makeThirdStageSecond() {
+  cardPush = sortArrBrownAll.pop();
+  thirdStage.push(cardPush);
+  cardPush = sortArrBrownAll.pop();
+  thirdStage.push(cardPush);
+  cardPush= sortArrBrownAll.pop();
+  thirdStage.push(cardPush);
+  cardPush = sortArrBrownAll.pop();
+  thirdStage.push(cardPush);
+  cardPush = sortArrGreen.pop();
+  thirdStage.push(cardPush);
+  cardPush = sortArrGreen.pop();
+  thirdStage.push(cardPush);
+  cardPush = sortArrGreen.pop();
+  thirdStage.push(cardPush);
+}
+
+function seeDataVeryEasyLevelSecond() {
+  makeDeckOfBlueCards();
+  makeDeckOfBrownCards();
+  makeDeckOfGreenCardsSecond();
+  makeFirstStageSecond();
+  makeSecondStageSecond();
+  makeThirdStageSecond();
+  makeCommonDesk();
+}
+
+function chooseDifficultyLevel() {
+  if(difficulties[0].classList.contains('active-button') && ancientCards[0].classList.contains('active')) {
+    seeDataVeryEasyLevel();
+  } else if(difficulties[1].classList.contains('active-button') && ancientCards[0].classList.contains('active')){
+    seeDataEasyLevel();
+  } else if(difficulties[2].classList.contains('active-button') && ancientCards[0].classList.contains('active')){
+    seeDataMediumLevel();
+  } else if(difficulties[3].classList.contains('active-button') && ancientCards[0].classList.contains('active')){
+    seeDataHighLevel();
+  } else if(difficulties[4].classList.contains('active-button') && ancientCards[0].classList.contains('active')){
+    seeDataVeryHighLevel();
+  } else if(difficulties[0].classList.contains('active-button') && ancientCards[1].classList.contains('active')) {
+    seeDataVeryEasyLevelSecond();
+  } else if(difficulties[1].classList.contains('active-button') && ancientCards[1].classList.contains('active')){
+    console.log('2')
+  } else if(difficulties[2].classList.contains('active-button') && ancientCards[1].classList.contains('active')){
+    console.log('3')
+  } else if(difficulties[3].classList.contains('active-button') && ancientCards[1].classList.contains('active')){
+    console.log('4')
+  } else if(difficulties[4].classList.contains('active-button') && ancientCards[1].classList.contains('active')){
+    console.log('5')
+  } else if(difficulties[0].classList.contains('active-button') && ancientCards[2].classList.contains('active')) {
+    console.log('1')
+  } else if(difficulties[1].classList.contains('active-button') && ancientCards[2].classList.contains('active')){
+    console.log('2')
+  } else if(difficulties[2].classList.contains('active-button') && ancientCards[2].classList.contains('active')){
+    console.log('3')
+  } else if(difficulties[3].classList.contains('active-button') && ancientCards[2].classList.contains('active')){
+    console.log('4')
+  } else if(difficulties[4].classList.contains('active-button') && ancientCards[2].classList.contains('active')){
+    console.log('5')
+  } else if(difficulties[0].classList.contains('active-button') && ancientCards[3].classList.contains('active')) {
+    console.log('1')
+  } else if(difficulties[1].classList.contains('active-button') && ancientCards[3].classList.contains('active')){
+    console.log('2')
+  } else if(difficulties[2].classList.contains('active-button') && ancientCards[3].classList.contains('active')){
+    console.log('3')
+  } else if(difficulties[3].classList.contains('active-button') && ancientCards[3].classList.contains('active')){
+    console.log('4')
+  } else if(difficulties[4].classList.contains('active-button') && ancientCards[3].classList.contains('active')){
+    console.log('5')
+  }
+}
